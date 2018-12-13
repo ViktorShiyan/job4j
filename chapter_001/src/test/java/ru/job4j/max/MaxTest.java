@@ -13,7 +13,7 @@ public class MaxTest {
     private Max max;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         max = new Max();
     }
 
@@ -22,7 +22,7 @@ public class MaxTest {
      */
     @Test
     public void whenFirstLessSecond() {
-        int result = max.maxOfTwo(1, 2);
+        int result = max.max(1, 2);
         assertThat(result, is(2));
     }
 
@@ -31,7 +31,7 @@ public class MaxTest {
      */
     @Test
     public void whenSecondLessFirst() {
-        int result = max.maxOfTwo(2, 1);
+        int result = max.max(2, 1);
         assertThat(result, is(2));
     }
 
@@ -40,7 +40,16 @@ public class MaxTest {
      */
     @Test
     public void whenSmooth() {
-        int result = max.maxOfTwo(2, 2);
+        int result = max.max(2, 2);
         assertThat(result, is(2));
+    }
+
+    /**
+     * Тест когда третье число больше
+     */
+    @Test
+    public void whenThirdMore() {
+        int result = max.max(2, 2, 10);
+        assertThat(result, is(10));
     }
 }

@@ -14,7 +14,19 @@ public class Max {
      * @param second второе число
      * @return большее число
      */
-    public int maxOfTwo(int first, int second) {
+    public int max(int first, int second) {
         return first > second ? first : second;
+    }
+
+    /**
+     * Метод возвращающий большее из трех чисел
+     *
+     * @param first  первое число
+     * @param second второе число
+     * @param third  третье число
+     * @return большее число
+     */
+    public int max(int first, int second, int third) {
+        return this.max(first, this.max(second, third));
     }
 }
