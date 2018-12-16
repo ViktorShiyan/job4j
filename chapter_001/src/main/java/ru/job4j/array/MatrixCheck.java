@@ -15,59 +15,15 @@ public class MatrixCheck {
      */
     public boolean mono(boolean[][] data) {
         boolean result = true;
-        int size = data[0].length;
-        if (size % 2 == 0) {
-            result = this.monoEven(data, size);
-        } else {
-            result = this.monoNotEven(data, size);
-        }
-        return result;
-    }
-
-    /**
-     * Метод для проверки диагоналей в матрице с не четным размером
-     *
-     * @param data матрица
-     * @param size размер матрицы
-     * @return true если диагонали одинаковы по значениям
-     */
-    private boolean monoNotEven(boolean[][] data, int size) {
-        boolean result = true;
-        int centr = (size - 1) / 2;
-        boolean tmp = data[centr][centr];
-        for (int i = 0; i <= centr; i++) {
-            if (tmp != data[centr + i][centr + i] || tmp != data[centr - i][centr - i]
-                    || tmp != data[centr + i][centr - i] || tmp != data[centr - i][centr + i]) {
-                result = false;
-                break;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Метод для проверки диагоналей в матрице с четным размером
-     *
-     * @param data матрица
-     * @param size размер матрицы
-     * @return true если диагонали одинаковы по значениям
-     */
-    private boolean monoEven(boolean[][] data, int size) {
-        boolean result = true;
-        boolean tmpLeft;
-        boolean tmpRight;
-        tmpLeft = data[0][0];
-        tmpRight = data[0][size - 1];
+        int size = data[0].length - 1;
         for (int i = 0; i < size; i++) {
-            if (data[i][i] != tmpLeft) {
+            if (data[i][i] != data[i + 1][i + 1] || data[i][size - i] != data[i + 1][size - i - 1]) {
                 result = false;
                 break;
             }
-            if (data[i][size - 1 - i] != tmpRight) {
-                result = false;
-                break;
-            }
+
         }
         return result;
     }
+
 }
