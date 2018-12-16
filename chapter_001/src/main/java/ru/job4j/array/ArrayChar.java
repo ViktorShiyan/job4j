@@ -20,14 +20,11 @@ public class ArrayChar {
      * @return если слово начинается с префикса
      */
     public boolean startWith(String prefix) {
-        boolean result = false;
-        String intermediate = "";
+        boolean result = true;
         char[] value = prefix.toCharArray();
-        for (int i = 0; i < data.length; i++) {
-            intermediate += data[i];
-            if (intermediate.equals(prefix)) {
-                result = true;
-                break;
+        for (int i = 0; i < value.length; i++) {
+            if (data[i] != value[i]) {
+                result = false;
             }
         }
         return result;
