@@ -18,13 +18,8 @@ public class Check {
     public boolean mono(boolean[] data) {
         boolean result = true;
         for (int i = 0; i < data.length; i++) {
-            if (data.length == 1) {
-                break;
-            }
-            if (data[i] != data[i + 1]) {
+            if (data[0] != data[i]) {
                 result = false;
-            }
-            if (i + 1 == data.length - 1) {
                 break;
             }
         }
