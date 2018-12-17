@@ -13,11 +13,11 @@ import static org.junit.Assert.*;
  * @since 15.12.2018
  */
 public class CheckTest {
-    Check check;
+    Check testChek;
 
     @Before
     public void setUp() {
-        check = new Check();
+        testChek = new Check();
     }
 
     /**
@@ -26,7 +26,7 @@ public class CheckTest {
     @Test
     public void whenEvenFalse() {
         boolean[] data = new boolean[]{false, false, false};
-        boolean result = check.mono(data);
+        boolean result = testChek.mono(data);
         assertThat(result, is(true));
     }
 
@@ -36,7 +36,7 @@ public class CheckTest {
     @Test
     public void whenNotEvenFalse() {
         boolean[] data = new boolean[]{false, false};
-        boolean result = check.mono(data);
+        boolean result = testChek.mono(data);
         assertThat(result, is(true));
     }
 
@@ -46,7 +46,7 @@ public class CheckTest {
     @Test
     public void whenEvenTrue() {
         boolean[] data = new boolean[]{true, true, true};
-        boolean result = check.mono(data);
+        boolean result = testChek.mono(data);
         assertThat(result, is(true));
     }
 
@@ -56,7 +56,7 @@ public class CheckTest {
     @Test
     public void whenNotEvenTrue() {
         boolean[] data = new boolean[]{true, true};
-        boolean result = check.mono(data);
+        boolean result = testChek.mono(data);
         assertThat(result, is(true));
     }
 
@@ -66,7 +66,7 @@ public class CheckTest {
     @Test
     public void whenNotEvenTrueOne() {
         boolean[] data = new boolean[]{true};
-        boolean result = check.mono(data);
+        boolean result = testChek.mono(data);
         assertThat(result, is(true));
     }
 
@@ -76,7 +76,7 @@ public class CheckTest {
     @Test
     public void whenFalse() {
         boolean[] data = new boolean[]{true, false, true};
-        boolean result = check.mono(data);
+        boolean result = testChek.mono(data);
         assertThat(result, is(false));
     }
 }

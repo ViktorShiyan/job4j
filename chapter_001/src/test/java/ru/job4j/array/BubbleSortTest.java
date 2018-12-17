@@ -18,9 +18,9 @@ public class BubbleSortTest {
      */
     @Test
     public void sort() {
-        BubbleSort bubbleSort = new BubbleSort();
+        BubbleSort testSorter = new BubbleSort();
         int[] arr = {1, 9, 8, 4, 3, 6};
         int[] expect = {1, 3, 4, 6, 8, 9};
-        assertThat(bubbleSort.sort(arr), is(expect));
+        assertThat(testSorter.sort(arr), is(expect));
     }
 }
