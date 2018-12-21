@@ -34,7 +34,7 @@ public class Tracker {
     public void replace(String id, Item item) {
         for (int i = 0; i < position; i++) {
             if (this.items[i].getId().equals(id)) {
-                item.setId(this.generateID());
+                item.setId(id);
                 this.items[i] = item;
             }
         }
@@ -48,12 +48,8 @@ public class Tracker {
     public void delete(String id) {
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
-                for (int j = i; j < this.position; j++) {
-                    this.items[i] = this.items[i + 1];
-                }
-                this.position -= 1;
+                System.arraycopy(this.items, i + 1, this.items, i, --position);
                 break;
-
             }
         }
     }
