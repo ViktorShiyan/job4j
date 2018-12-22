@@ -31,13 +31,16 @@ public class Tracker {
      * @param id   изменяемая заявка
      * @param item новая заявка
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean result = false;
         for (int i = 0; i < position; i++) {
             if (this.items[i].getId().equals(id)) {
                 item.setId(id);
                 this.items[i] = item;
+                result = true;
             }
         }
+        return result;
     }
 
     /**
@@ -45,13 +48,17 @@ public class Tracker {
      *
      * @param id идентификатор удаляемой заявки
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean result = false;
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
-                System.arraycopy(this.items, i + 1, this.items, i, --position);
+                System.arraycopy(this.items, i + 1, this.items, i, position - 1);
+                position -= 1;
+                result = true;
                 break;
             }
         }
+        return result;
     }
 
     public Item[] findAll() {

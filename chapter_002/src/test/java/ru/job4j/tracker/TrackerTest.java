@@ -85,9 +85,10 @@ public class TrackerTest {
         Item four = new Item("test4", "description4");
         storing.add(four);
         Item[] expect = {one, two, four};
-        storing.delete(three.getId());
+        boolean goodDelite = storing.delete(three.getId());
         Item[] result = storing.findAll();
         assertThat(result, is(expect));
+        assertThat(goodDelite, is(true));
     }
 
     /**
@@ -99,7 +100,8 @@ public class TrackerTest {
         Item test = new Item("TEST", "TESTING");
         storing.add(test);
         Item replaceable = new Item("Replace", "ЗАМЕНЯЕМ");
-        storing.replace(test.getId(), replaceable);
+        boolean goodReplace = storing.replace(test.getId(), replaceable);
         assertThat(storing.findById(replaceable.getId()), is(replaceable));
+        assertThat(goodReplace, is(true));
     }
 }
