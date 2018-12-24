@@ -30,6 +30,7 @@ public class Tracker {
      *
      * @param id   изменяемая заявка
      * @param item новая заявка
+     * @return true при успешном изменении
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
@@ -47,6 +48,7 @@ public class Tracker {
      * Метод удаляющий заявку
      *
      * @param id идентификатор удаляемой заявки
+     * @return true при удачном удалении
      */
     public boolean delete(String id) {
         boolean result = false;
@@ -61,10 +63,21 @@ public class Tracker {
         return result;
     }
 
+    /**
+     * Метод для получения всех заявок
+     *
+     * @return все заявки
+     */
     public Item[] findAll() {
         return Arrays.copyOfRange(this.items, 0, position);
     }
 
+    /**
+     * Поиск заявок по названию
+     *
+     * @param key название
+     * @return массив с заявками
+     */
     public Item[] findByName(String key) {
         int inPosition = 0;
         Item[] findByNameArr = new Item[100];
@@ -77,6 +90,12 @@ public class Tracker {
         return Arrays.copyOfRange(findByNameArr, 0, inPosition);
     }
 
+    /**
+     * Метод для поиска заявки по ID
+     *
+     * @param id идентификатор
+     * @return Заявку или null
+     */
     public Item findById(String id) {
         Item findItem = null;
         for (int i = 0; i < this.position; i++) {
