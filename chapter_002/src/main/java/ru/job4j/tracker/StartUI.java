@@ -78,6 +78,8 @@ public class StartUI {
                 this.findBYyName();
             } else if (EXIT.equals(answer)) {
                 exit = true;
+            } else {
+                System.out.println("Неизвестная команда");
             }
         }
     }
