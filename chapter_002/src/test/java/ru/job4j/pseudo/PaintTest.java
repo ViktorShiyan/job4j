@@ -1,5 +1,7 @@
 package ru.job4j.pseudo;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -15,15 +17,30 @@ import static org.junit.Assert.*;
  * @since 25.12.2018
  */
 public class PaintTest {
+    private PrintStream stdout = System.out;
+    private ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    /**
+     * Переопределяется вывод в память
+     */
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(this.out));
+    }
+
+    /**
+     * Возвращает стандартный вывод
+     */
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+    }
 
     /**
      * Тест на отрисовку треугольника
      */
     @Test
     public void drewTriangle() {
-        PrintStream stdout = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
         new Paint().drew(new Triangle());
         assertThat(
                 new String(out.toByteArray()),
@@ -36,7 +53,6 @@ public class PaintTest {
                                 .toString()
                 )
         );
-        System.setOut(stdout);
     }
 
     /**
@@ -44,9 +60,6 @@ public class PaintTest {
      */
     @Test
     public void drewSquere() {
-        PrintStream stdout = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
         new Paint().drew(new Square());
         assertThat(
                 new String(out.toByteArray()),
@@ -60,7 +73,6 @@ public class PaintTest {
                                 .toString()
                 )
         );
-        System.setOut(stdout);
 
     }
 }
