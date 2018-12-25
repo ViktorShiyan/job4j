@@ -71,7 +71,7 @@ public class StartUI {
             } else if (EDIT.equals(answer)) {
                 this.edit();
             } else if (DELITE.equals(answer)) {
-                this.delite();
+                this.delete();
             } else if (FIND_BY_ID.equals(answer)) {
                 this.findByID();
             } else if (FIND_BY_NAME.equals(answer)) {
@@ -92,7 +92,7 @@ public class StartUI {
         Item[] findedItems = tracker.findByName(name);
         if (findedItems.length != 0) {
             for (Item item : findedItems) {
-                System.out.println("Заявка: " + item.getName() + "\nОписание: " + item.getDesc() + "\n");
+                System.out.println(item.toString());
             }
         } else {
             System.out.println("Нет заявок с таким названием");
@@ -106,7 +106,7 @@ public class StartUI {
         String id = input.ask("Введите ID для поиска заявки");
         Item findedItem = tracker.findById(id);
         if (findedItem != null) {
-            System.out.println("Заявка: " + findedItem.getName() + "\nОписание: " + findedItem.getDesc() + "\n");
+            System.out.println(findedItem.toString());
         } else {
             System.out.println("Заявка с таким ID не найдена");
         }
@@ -115,7 +115,7 @@ public class StartUI {
     /**
      * Метод для удаления заявки
      */
-    private void delite() {
+    private void delete() {
         String id = input.ask("Введите Id удаляемой заявки");
         if (tracker.delete(id)) {
             System.out.println("Заявка c ID " + id + " удалена");

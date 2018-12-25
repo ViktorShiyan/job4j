@@ -48,4 +48,8 @@ public class Item {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Заявка: " + this.getName() + "\nОписание:" + this.getDesc() + "\n";
+    }
 }
