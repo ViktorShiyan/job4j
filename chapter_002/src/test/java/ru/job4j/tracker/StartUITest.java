@@ -102,4 +102,21 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(new String(out.toByteArray()).contains(item.getName()), is(true));
     }
+
+    /**
+     * Тест вывод заявок по названию
+     * Когда заявок с одним название больше одной
+     */
+    @Test
+    public void whenMoreShowByName() {
+        Item item = tracker.add(new Item("test name", "desc"));
+        Item item2 = tracker.add(new Item("test name", "desc number two"));
+        Item item3 = tracker.add(new Item("test name", "desc number three"));
+        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
+        new StartUI(input, tracker).init();
+        boolean contains = new String(out.toByteArray()).contains(item.getDesc());
+        boolean contains1 = new String(out.toByteArray()).contains(item2.getDesc());
+        boolean contains2 = new String(out.toByteArray()).contains(item3.getDesc());
+        assertThat(contains && contains1 && contains2, is(true));
+    }
 }
