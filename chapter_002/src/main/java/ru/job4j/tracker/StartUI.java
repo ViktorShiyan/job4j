@@ -51,6 +51,6 @@ public class StartUI {
      * @param args аргкменты для запуска.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidInput(), new Tracker()).init();
+        new StartUI(new ValidInput(new ConsoleInput()), new Tracker()).init();
     }
 }
