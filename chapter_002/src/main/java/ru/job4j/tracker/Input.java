@@ -15,4 +15,13 @@ public interface Input {
      */
     String ask(String question);
 
+    /**
+     * Метод возращающий число из диапозона
+     *
+     * @param question вопрос
+     * @param range    диапозон
+     * @return ключ
+     */
+    int ask(String question, int[] range);
+
 }

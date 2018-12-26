@@ -9,6 +9,10 @@ package ru.job4j.tracker;
  */
 public class StartUI {
     /**
+     * Диапозон значений
+     */
+    private int[] range = new int[]{0, 1, 2, 3, 4, 5};
+    /**
      * Получение данных от пользователя.
      */
     private final Input input;
@@ -37,7 +41,7 @@ public class StartUI {
         menu.fillActions();
         do {
             menu.show();
-            menu.select(Integer.valueOf(input.ask("select:")));
+            menu.select(input.ask("select:", range));
         } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
 
@@ -47,6 +51,6 @@ public class StartUI {
      * @param args аргкменты для запуска.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidInput(), new Tracker()).init();
     }
 }
