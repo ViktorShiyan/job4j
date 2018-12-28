@@ -3,7 +3,7 @@ package ru.job4j.tracker;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Tracker {
+public class Tracker implements TrackerInterface {
     private Item[] items = new Item[100];
     private static final Random RN = new Random();
     private int position;

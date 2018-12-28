@@ -34,7 +34,7 @@ public class MenuTracker {
      */
     public void fillActions() {
         this.actions.add(new AddItem(ADD, "Add new Item."));
-        this.actions.add(new MenuTracker.FindAll(SHOW, "Show all items"));
+        this.actions.add(new FindAll(SHOW, "Show all items"));
         this.actions.add(new EditItem(EDIT, "Edit item"));
         this.actions.add(new DeleteItem(DELETE, "Delete item"));
         this.actions.add(new MenuTracker.FindId(FINDBYID, "Find item by Id"));
