@@ -2,6 +2,7 @@ package ru.job4j;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Класс реадизующий кофе машину
@@ -21,28 +22,15 @@ public class Cofemashine {
      * @return массив с купюрами
      */
     int[] changes(int value, int price) {
-        ArrayList<Integer> cointRemain = new ArrayList<Integer>();
+        int[] cointRemain = new int[value - price];
+        int position = 0;
         int remainder = value - price;
         for (int c : coints) {
             while (remainder >= c) {
-                cointRemain.add(c);
+                cointRemain[position++] = c;
                 remainder -= c;
             }
         }
-        return convertIntegers(cointRemain);
-    }
-
-    /**
-     * Метод для преобразования списка в массив
-     *
-     * @param integers список
-     * @return массив
-     */
-    public static int[] convertIntegers(ArrayList<Integer> integers) {
-        int[] ret = new int[integers.size()];
-        for (int i = 0; i < ret.length; i++) {
-            ret[i] = integers.get(i);
-        }
-        return ret;
+        return Arrays.copyOf(cointRemain, position);
     }
 }
