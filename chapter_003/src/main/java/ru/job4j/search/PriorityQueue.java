@@ -22,11 +22,16 @@ public class PriorityQueue {
         if (this.tasks.isEmpty()) {
             this.tasks.add(task);
         } else {
+            boolean added = false;
             for (int i = 0; i < this.tasks.size(); i++) {
                 if (task.getPriority() <= this.tasks.get(i).getPriority()) {
                     this.tasks.add(i, task);
+                    added = true;
                     break;
                 }
+            }
+            if (!added) {
+                this.tasks.add(task);
             }
         }
     }

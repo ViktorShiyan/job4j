@@ -25,4 +25,18 @@ public class PriorityQueueTest {
         Task result = queue.take();
         assertThat(result.getDesc(), is("urgent"));
     }
+
+    @Test
+    public void whenHigherPriority8() {
+        PriorityQueue queue = new PriorityQueue();
+        queue.put(new Task("low", 5));
+        queue.put(new Task("urgent", 2));
+        queue.put(new Task("middle", 3));
+        queue.put(new Task("superLow", 8));
+        Task result = queue.take();
+        result = queue.take();
+        result = queue.take();
+        result = queue.take();
+        assertThat(result.getDesc(), is("superLow"));
+    }
 }
