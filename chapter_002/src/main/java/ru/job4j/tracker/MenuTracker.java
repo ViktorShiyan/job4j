@@ -127,8 +127,8 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            Item[] items = tracker.findAll();
-            if (items.length != 0) {
+            ArrayList<Item> items = tracker.findAll();
+            if (!items.isEmpty()) {
                 for (Item item : items) {
                     System.out.println("------------" + item.getName() + " c ID " + item.getId() + "-----------");
                 }
@@ -171,8 +171,8 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Введите название заявки для поиска");
-            Item[] findedItems = tracker.findByName(name);
-            if (findedItems.length != 0) {
+            ArrayList<Item> findedItems = tracker.findByName(name);
+            if (!findedItems.isEmpty()) {
                 for (Item item : findedItems) {
                     System.out.println(item.toString());
                 }

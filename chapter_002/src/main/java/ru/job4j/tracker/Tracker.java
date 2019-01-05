@@ -1,15 +1,13 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Tracker implements TrackerInterface {
-    private Item[] items = new Item[100];
+    private ArrayList<Item> items = new ArrayList<>();
     private static final Random RN = new Random();
-    private int position;
 
     public Tracker() {
-        this.position = 0;
     }
 
     /**
@@ -20,8 +18,7 @@ public class Tracker implements TrackerInterface {
      */
     public Item add(Item item) {
         item.setId(this.generateID());
-        this.items[position] = item;
-        position++;
+        this.items.add(item);
         return item;
     }
 
@@ -34,11 +31,13 @@ public class Tracker implements TrackerInterface {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < position; i++) {
-            if (this.items[i].getId().equals(id)) {
+        for (Item i : this.items) {
+            if (i.getId().equals(id)) {
                 item.setId(id);
-                this.items[i] = item;
+                this.items.add(this.items.indexOf(i), item);
+                this.items.remove(i);
                 result = true;
+                break;
             }
         }
         return result;
@@ -52,10 +51,9 @@ public class Tracker implements TrackerInterface {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                System.arraycopy(this.items, i + 1, this.items, i, position - 1);
-                position -= 1;
+        for (Item item : this.items) {
+            if (item.getId().equals(id)) {
+                this.items.remove(item);
                 result = true;
                 break;
             }
@@ -68,8 +66,8 @@ public class Tracker implements TrackerInterface {
      *
      * @return все заявки
      */
-    public Item[] findAll() {
-        return Arrays.copyOfRange(this.items, 0, position);
+    public ArrayList<Item> findAll() {
+        return this.items;
     }
 
     /**
@@ -78,16 +76,14 @@ public class Tracker implements TrackerInterface {
      * @param key название
      * @return массив с заявками
      */
-    public Item[] findByName(String key) {
-        int inPosition = 0;
-        Item[] findByNameArr = new Item[100];
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getName().equals(key)) {
-                findByNameArr[inPosition] = this.items[i];
-                inPosition++;
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> result = new ArrayList<>();
+        for (Item item : this.items) {
+            if (item.getName().equals(key)) {
+                result.add(item);
             }
         }
-        return Arrays.copyOfRange(findByNameArr, 0, inPosition);
+        return (result);
     }
 
     /**
@@ -98,10 +94,9 @@ public class Tracker implements TrackerInterface {
      */
     public Item findById(String id) {
         Item findItem = null;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                findItem = this.items[i];
-                break;
+        for (Item item : this.items) {
+            if (item.getId().equals(id)) {
+                findItem = item;
             }
         }
         return findItem;

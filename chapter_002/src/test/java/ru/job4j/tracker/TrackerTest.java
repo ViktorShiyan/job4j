@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -49,8 +51,12 @@ public class TrackerTest {
         storing.add(three);
         Item four = new Item("test3", "description3");
         storing.add(four);
-        Item[] result = storing.findAll();
-        Item[] expect = {one, two, three, four};
+        ArrayList<Item> result = storing.findAll();
+        ArrayList<Item> expect = new ArrayList<Item>();
+        expect.add(one);
+        expect.add(two);
+        expect.add(three);
+        expect.add(four);
         assertThat(result, is(expect));
     }
 
@@ -63,10 +69,12 @@ public class TrackerTest {
         storing.add(new Item("first", "tra taaaa"));
         storing.add(new Item("second", "diiddidididd"));
         storing.add(new Item("first", "rrrrrrrr"));
-        Item[] result = storing.findByName("first");
-        Item first = storing.findById(result[0].getId());
-        Item second = storing.findById(result[1].getId());
-        Item[] expect = {first, second};
+        ArrayList<Item> result = storing.findByName("first");
+        Item first = storing.findById(result.get(0).getId());
+        Item second = storing.findById(result.get(1).getId());
+        ArrayList<Item> expect = new ArrayList<>();
+        expect.add(first);
+        expect.add(second);
         assertThat(result, is(expect));
     }
 
@@ -84,9 +92,12 @@ public class TrackerTest {
         storing.add(three);
         Item four = new Item("test4", "description4");
         storing.add(four);
-        Item[] expect = {one, two, four};
+        ArrayList<Item> expect = new ArrayList<>();
+        expect.add(one);
+        expect.add(two);
+        expect.add(four);
         boolean goodDelite = storing.delete(three.getId());
-        Item[] result = storing.findAll();
+        ArrayList<Item> result = storing.findAll();
         assertThat(result, is(expect));
         assertThat(goodDelite, is(true));
     }

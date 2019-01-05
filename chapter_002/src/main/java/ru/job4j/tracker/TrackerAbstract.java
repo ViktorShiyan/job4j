@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * Абстрактный класс, создан для уменьшения рукописного кода
  * реализует интерфейс TrackerInterface
@@ -14,7 +16,7 @@ public abstract class TrackerAbstract implements TrackerInterface {
     }
 
     @Override
-    public Item[] findAll() {
+    public ArrayList<Item> findAll() {
         return this.tracker.findAll();
     }
 
@@ -34,7 +36,7 @@ public abstract class TrackerAbstract implements TrackerInterface {
     }
 
     @Override
-    public Item[] findByName(String key) {
+    public ArrayList<Item> findByName(String key) {
         return this.tracker.findByName(key);
     }
 }

@@ -4,6 +4,8 @@ import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.TrackerInterface;
 
+import java.util.ArrayList;
+
 /**
  * enum. Eager loading.
  * Реализация singleton с помощью enum
@@ -19,7 +21,7 @@ public enum TrackerEnumEager implements TrackerInterface {
     }
 
     @Override
-    public Item[] findAll() {
+    public ArrayList<Item> findAll() {
         return this.tracker.findAll();
     }
 
@@ -39,7 +41,7 @@ public enum TrackerEnumEager implements TrackerInterface {
     }
 
     @Override
-    public Item[] findByName(String key) {
+    public ArrayList<Item> findByName(String key) {
         return this.tracker.findByName(key);
     }
 }
