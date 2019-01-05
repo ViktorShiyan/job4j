@@ -27,7 +27,7 @@ public class ConvertList2ArrayTest {
     public void when9ElementsThen9() {
         ConvertList2Array list = new ConvertList2Array();
         int[][] result = list.toArray(
-                Arrays.asList(1, 2, 3, 4, 5, 6, 7,8,9),
+                Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9),
                 3
         );
         int[][] expect = {
