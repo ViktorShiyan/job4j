@@ -24,7 +24,7 @@ public class ConvertList2Array {
         for (int out = 0; out < rows; out++) {
             for (int in = 0; in < cells; in++) {
                 if (count >= list.size()) {
-                    count++;
+                    break;
                 } else {
                     array[out][in] = list.get(count);
                     count++;
