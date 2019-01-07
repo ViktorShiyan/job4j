@@ -50,15 +50,7 @@ public class Tracker implements TrackerInterface {
      * @return true при удачном удалении
      */
     public boolean delete(String id) {
-        boolean result = false;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                this.items.remove(item);
-                result = true;
-                break;
-            }
-        }
-        return result;
+        return this.items.remove(this.findById(id));
     }
 
     /**
