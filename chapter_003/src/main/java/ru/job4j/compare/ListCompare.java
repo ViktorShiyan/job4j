@@ -21,7 +21,7 @@ public class ListCompare implements Comparator<String> {
                 result = -1;
             }
         }
-        if (result == 0 && left.length() != right.length()) {
+        if (result == 0) {
             result = left.length() - right.length();
         }
         return result;
