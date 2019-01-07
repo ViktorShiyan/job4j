@@ -41,4 +41,28 @@ public class UserSortTest {
         Iterator<User> iterator = userSet.iterator();
         assertThat(iterator.next(), is(userList.get(2)));
     }
+
+    @Test
+    public void whenViktorLong() {
+        UserSort userSort = new UserSort();
+        List<User> userList = new ArrayList<>();
+        userList.add(new User("Jhon", 100));
+        userList.add(new User("Mike", 100));
+        userList.add(new User("Viktor", 27));
+        userList = userSort.sortNameLength(userList);
+        assertThat(userList.get(2).getName(), is("Viktor"));
+    }
+
+    @Test
+    public void whenIvan() {
+        UserSort userSort = new UserSort();
+        List<User> userList = new ArrayList<>();
+        userList.add(new User("Сергей", 25));
+        userList.add(new User("Иван", 30));
+        userList.add(new User("Сергей", 20));
+        userList.add(new User("Иван", 25));
+        List<User> result = userSort.sortByAllFields(userList);
+        assertThat(result.get(0).getName(), is("Иван"));
+        assertThat(result.get(1).getName(), is("Иван"));
+    }
 }
