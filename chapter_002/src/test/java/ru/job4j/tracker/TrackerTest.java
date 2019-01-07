@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -51,8 +52,8 @@ public class TrackerTest {
         storing.add(three);
         Item four = new Item("test3", "description3");
         storing.add(four);
-        ArrayList<Item> result = storing.findAll();
-        ArrayList<Item> expect = new ArrayList<Item>();
+        List<Item> result = storing.findAll();
+        ArrayList<Item> expect = new ArrayList<>();
         expect.add(one);
         expect.add(two);
         expect.add(three);
@@ -69,7 +70,7 @@ public class TrackerTest {
         storing.add(new Item("first", "tra taaaa"));
         storing.add(new Item("second", "diiddidididd"));
         storing.add(new Item("first", "rrrrrrrr"));
-        ArrayList<Item> result = storing.findByName("first");
+        List<Item> result = storing.findByName("first");
         Item first = storing.findById(result.get(0).getId());
         Item second = storing.findById(result.get(1).getId());
         ArrayList<Item> expect = new ArrayList<>();
@@ -97,7 +98,7 @@ public class TrackerTest {
         expect.add(two);
         expect.add(four);
         boolean goodDelite = storing.delete(three.getId());
-        ArrayList<Item> result = storing.findAll();
+        List<Item> result = storing.findAll();
         assertThat(result, is(expect));
         assertThat(goodDelite, is(true));
     }

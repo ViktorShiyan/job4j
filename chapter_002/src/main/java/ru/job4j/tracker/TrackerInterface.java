@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Интерфейс для классов Трекер.
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface TrackerInterface {
     Item add(Item item);
 
-    ArrayList<Item> findAll();
+    List<Item> findAll();
 
     boolean delete(String id);
 
@@ -20,5 +20,5 @@ public interface TrackerInterface {
 
     Item findById(String id);
 
-    ArrayList<Item> findByName(String key);
+    List<Item> findByName(String key);
 }

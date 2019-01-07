@@ -1,10 +1,11 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Tracker implements TrackerInterface {
-    private ArrayList<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
     private static final Random RN = new Random();
 
     public Tracker() {
@@ -34,8 +35,7 @@ public class Tracker implements TrackerInterface {
         for (Item i : this.items) {
             if (i.getId().equals(id)) {
                 item.setId(id);
-                this.items.add(this.items.indexOf(i), item);
-                this.items.remove(i);
+                this.items.set(this.items.indexOf(i), item);
                 result = true;
                 break;
             }
@@ -66,7 +66,7 @@ public class Tracker implements TrackerInterface {
      *
      * @return все заявки
      */
-    public ArrayList<Item> findAll() {
+    public List<Item> findAll() {
         return this.items;
     }
 
@@ -76,8 +76,8 @@ public class Tracker implements TrackerInterface {
      * @param key название
      * @return массив с заявками
      */
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> result = new ArrayList<>();
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
         for (Item item : this.items) {
             if (item.getName().equals(key)) {
                 result.add(item);
