@@ -12,13 +12,11 @@ public class ListCompare implements Comparator<String> {
     @Override
     public int compare(String left, String right) {
         int result = 0;
-        int litleLenght = left.length() < right.length() ? left.length() : right.length();
-        for (int i = 0; i < litleLenght; i++) {
-            if (left.charAt(i) > right.charAt(i)) {
-                result = 1;
+        int lengthMin = (left.length() < right.length()) ? left.length() : right.length();
+        for (int i = 0; i < lengthMin; i++) {
+            result = Character.compare(left.charAt(i), right.charAt(i));
+            if (result != 0) {
                 break;
-            } else if (left.charAt(i) < right.charAt(i)) {
-                result = -1;
             }
         }
         if (result == 0) {
