@@ -34,7 +34,7 @@ public class Bank {
      */
     public void addAccountToUser(String passport, Account account) {
         for (User user : this.userAccounts.keySet()) {
-            if (user.getPassport().equals(passport)) {
+            if (user.getPassport().equals(passport) && !this.userAccounts.get(user).contains(account)) {
                 this.userAccounts.get(user).add(account);
                 break;
             }
@@ -85,10 +85,8 @@ public class Bank {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean result = true;
-        List<Account> srcList = this.getUserAccounts(srcPassport);
-        Account srcAccount = this.findByRequsite(srcList, srcRequisite);
-        List<Account> destList = this.getUserAccounts(destPassport);
-        Account destAccount = this.findByRequsite(destList, destRequisite);
+        Account srcAccount = this.findByRequsiteAndPassport(srcPassport, srcRequisite);
+        Account destAccount = this.findByRequsiteAndPassport(destPassport, destRequisite);
         if (srcAccount == null || destAccount == null) {
             result = false;
         } else if (srcAccount.getValue() - amount < 0) {
@@ -115,6 +113,33 @@ public class Bank {
             }
         }
         return result;
+    }
+
+    /**
+     * Метод для поиска счета по паспорту и реквизитам
+     *
+     * @param passport  паспорт
+     * @param requisits реквизиты счета
+     * @return счет
+     */
+    private Account findByRequsiteAndPassport(String passport, String requisits) {
+        Account accountResult = null;
+        User userRes = null;
+        for (User user : this.userAccounts.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                userRes = user;
+                break;
+            }
+        }
+        if (userRes != null) {
+            for (Account account : this.userAccounts.get(userRes)) {
+                if (account.getRequisits().equals(requisits)) {
+                    accountResult = account;
+                    break;
+                }
+            }
+        }
+        return accountResult;
     }
 
     @Override
