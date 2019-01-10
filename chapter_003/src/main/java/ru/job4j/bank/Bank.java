@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Класс описывающий работу банка
+ * Класс описывающий работу банка на MAP
  *
  * @author Viktor Shiayn
  * @since 10.01.2019
