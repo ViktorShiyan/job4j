@@ -1,7 +1,9 @@
 package ru.job4j.lyambda;
 
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Класс описывает салькулятор на лямбде
@@ -10,6 +12,10 @@ import java.util.function.Consumer;
  * @since 11.01.2019
  */
 public class Calculator {
+
+    public interface Diapasoner {
+        public List<Double> diapason(int start, int end, Function<Double, Double> func);
+    }
 
     /**
      * Метод вычисляет таблицу умножения
@@ -27,4 +33,6 @@ public class Calculator {
             media.accept(op.apply(value, index));
         }
     }
+
+
 }
