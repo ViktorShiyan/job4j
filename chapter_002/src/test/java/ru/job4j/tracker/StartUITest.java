@@ -1,11 +1,10 @@
 package ru.job4j.tracker;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -18,25 +17,17 @@ import static org.junit.Assert.*;
  * @since 25.12.2018
  */
 public class StartUITest {
-    private Tracker tracker = new Tracker();
-    private PrintStream stdout = System.out;
-    private ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final Tracker tracker = new Tracker();
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final Consumer<String> output = new Consumer<>() {
+        private final PrintStream stdout = new PrintStream(out);
 
-    /**
-     * Переопределяется вывод в память
-     */
-    @Before
-    public void loadOutput() {
-        System.setOut(new PrintStream(this.out));
-    }
+        @Override
+        public void accept(String s) {
+            stdout.println(s);
+        }
+    };
 
-    /**
-     * Возвращает стандартный вывод
-     */
-    @After
-    public void backOutput() {
-        System.setOut(this.stdout);
-    }
 
     /**
      * Тест на добавление заявки
@@ -44,7 +35,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
 
@@ -55,7 +46,7 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
     }
 
@@ -66,7 +57,7 @@ public class StartUITest {
     public void whenDeliteItem() {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"3", item.getId(), "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findById(item.getId()), is(nullValue()));
     }
 
@@ -77,7 +68,7 @@ public class StartUITest {
     public void whenShowAll() {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"1", "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(new String(out.toByteArray()).contains(item.getId()), is(true));
     }
 
@@ -88,7 +79,7 @@ public class StartUITest {
     public void whenShowById() {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"4", item.getId(), "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(new String(out.toByteArray()).contains(item.getName()), is(true));
     }
 
@@ -99,7 +90,7 @@ public class StartUITest {
     public void whenShowByName() {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"5", item.getName(), "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(new String(out.toByteArray()).contains(item.getName()), is(true));
     }
 
@@ -113,7 +104,7 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("test name", "desc number two"));
         Item item3 = tracker.add(new Item("test name", "desc number three"));
         Input input = new StubInput(new String[]{"5", item.getName(), "y"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         boolean contains = new String(out.toByteArray()).contains(item.getDesc());
         boolean contains1 = new String(out.toByteArray()).contains(item2.getDesc());
         boolean contains2 = new String(out.toByteArray()).contains(item3.getDesc());
