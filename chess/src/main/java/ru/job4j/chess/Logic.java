@@ -56,21 +56,6 @@ public class Logic {
         }
     }
 
-    private void occupiedWay(Cell source, Cell dest, int index) {
-        if (index != -1) {
-            Cell[] steps = this.figures[index].way(source, dest);
-            Arrays.stream(this.figures)
-                    .forEach(otherFigure -> {
-                        if (Arrays.stream(steps)
-                                .anyMatch(step -> otherFigure != null && step.equals(otherFigure.position())
-                                )
-                        ) {
-                            throw new OccupiedWayException("Путь занят!");
-                        }
-                    });
-        }
-    }
-
     public void clean() {
         Arrays.stream(this.figures)
                 .forEach(figure -> figure = null);
@@ -88,4 +73,21 @@ public class Logic {
                 });
         return rst[0];
     }
+
+
+    private void occupiedWay(Cell source, Cell dest, int index) {
+        if (index != -1) {
+            Cell[] steps = this.figures[index].way(source, dest);
+            Arrays.stream(this.figures)
+                    .forEach(otherFigure -> {
+                        if (Arrays.stream(steps)
+                                .anyMatch(step -> otherFigure != null && step.equals(otherFigure.position())
+                                )
+                        ) {
+                            throw new OccupiedWayException("Путь занят!");
+                        }
+                    });
+        }
+    }
+
 }
