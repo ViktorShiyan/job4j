@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.is;
@@ -52,6 +51,6 @@ public class StreamUsageTest {
         );
         List<String> expect = List.of(task1.getName(), task2.getName(), task3.getName());
         List<String> result = tasks.stream().map(StreamUsage.Task::getName).collect(Collectors.toList());
-        assertThat(result,is(expect));
+        assertThat(result, is(expect));
     }
 }
