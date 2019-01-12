@@ -1,6 +1,9 @@
 package ru.job4j.search;
 
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Класс описывающий очередь с приоритетом
@@ -19,14 +22,13 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        int index = 0;
-        for (Task t : tasks) {
-            if (t != null && t.getPriority() > task.getPriority()) {
-                break;
+        this.tasks.add(task);
+        this.tasks = this.tasks.stream().sorted(new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return o1.getPriority() - o2.getPriority();
             }
-            index++;
-        }
-        this.tasks.add(index, task);
+        }).collect(Collectors.toCollection(LinkedList::new));
     }
 
     public Task take() {
