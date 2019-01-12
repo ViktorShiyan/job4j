@@ -1,9 +1,7 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Класс описывающий работу банка на MAP
@@ -68,13 +66,9 @@ public class Bank {
      * @param passport паспорт пользователя
      */
     public List<Account> getUserAccounts(String passport) {
-        List<Account> result = null;
-        for (User user : this.userAccounts.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = this.userAccounts.get(user);
-                break;
-            }
-        }
+        List<Account> result;
+        User user = this.userAccounts.keySet().stream().filter(userSearch -> userSearch.getPassport().equals(passport)).collect(Collectors.toList()).get(0);
+        result = this.userAccounts.get(user);
         return result;
     }
 
@@ -109,15 +103,11 @@ public class Bank {
      *
      * @param list список счетов
      * @param req  реквизиты
-     * @return
+     * @return счёт
      */
     private Account findByRequsite(List<Account> list, String req) {
-        Account result = null;
-        for (Account a : list) {
-            if (a.getRequisits().equals(req)) {
-                result = a;
-            }
-        }
+        Account result;
+        result = list.stream().filter(account -> account.getRequisits().equals(req)).collect(Collectors.toList()).get(0);
         return result;
     }
 
@@ -129,22 +119,13 @@ public class Bank {
      * @return счет
      */
     private Account findByRequsiteAndPassport(String passport, String requisits) {
-        Account accountResult = null;
-        User userRes = null;
-        for (User user : this.userAccounts.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                userRes = user;
-                break;
-            }
-        }
-        if (userRes != null) {
-            for (Account account : this.userAccounts.get(userRes)) {
-                if (account.getRequisits().equals(requisits)) {
-                    accountResult = account;
-                    break;
-                }
-            }
-        }
+        Account accountResult;
+        User userRes;
+        userRes = this.userAccounts.keySet().stream().filter(account -> account.getPassport()
+                .equals(passport)).collect(Collectors.toList()).get(0);
+
+        accountResult = this.userAccounts.get(userRes).stream().filter(account -> account
+                .getRequisits().equals(requisits)).collect(Collectors.toList()).get(0);
         return accountResult;
     }
 

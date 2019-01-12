@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
 public class BankTest {
     private Bank bank;
     private User user1;
+    private User user2;
     private Account account1;
     private Account account2;
 
@@ -25,7 +26,7 @@ public class BankTest {
     public void before() {
         bank = new Bank();
         user1 = new User("Viktor", "555555");
-        User user2 = new User("Ivan", "444444");
+        user2 = new User("Ivan", "444444");
         account1 = new Account(1000, "000000");
         account2 = new Account(10000, "000001");
         bank.addUser(user1);
@@ -40,7 +41,7 @@ public class BankTest {
     @Test
     public void addUser() {
         Map<User, List<Account>> map = bank.getBankList();
-        assertThat("Viktor", is(map.keySet().iterator().next().getName()));
+        assertThat(true, is(map.keySet().contains(user1)));
     }
 
     /**
