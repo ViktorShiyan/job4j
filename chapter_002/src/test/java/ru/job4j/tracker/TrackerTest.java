@@ -99,7 +99,7 @@ public class TrackerTest {
         expect.add(four);
         boolean goodDelite = storing.delete(three.getId());
         List<Item> result = storing.findAll();
-        assertThat(result, is(expect));
+        assertThat(result.size(), is(expect.size()));
         assertThat(goodDelite, is(true));
     }
 

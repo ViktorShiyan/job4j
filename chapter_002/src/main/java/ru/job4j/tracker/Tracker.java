@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Tracker implements TrackerInterface {
     private List<Item> items = new ArrayList<>();
@@ -51,10 +52,12 @@ public class Tracker implements TrackerInterface {
      */
     public boolean delete(String id) {
         boolean result = false;
-        Item item = this.findById(id);
-        if (item != null) {
-            this.items.remove(this.items.indexOf(item));
-            result = true;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
+                items.remove(i);
+                result = true;
+                break;
+            }
         }
         return result;
     }
@@ -75,13 +78,7 @@ public class Tracker implements TrackerInterface {
      * @return массив с заявками
      */
     public List<Item> findByName(String key) {
-        List<Item> result = new ArrayList<>();
-        for (Item item : this.items) {
-            if (item.getName().equals(key)) {
-                result.add(item);
-            }
-        }
-        return (result);
+        return this.items.stream().filter(item -> item.getName().equals(key)).collect(Collectors.toList());
     }
 
     /**
@@ -91,13 +88,12 @@ public class Tracker implements TrackerInterface {
      * @return Заявку или null
      */
     public Item findById(String id) {
-        Item findItem = null;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                findItem = item;
-            }
+        Item itemFind = null;
+        List<Item> list = this.items.stream().filter(item -> item.getId().equals(id)).collect(Collectors.toList());
+        if (!list.isEmpty()) {
+            itemFind = list.get(0);
         }
-        return findItem;
+        return itemFind;
     }
 
     /**
