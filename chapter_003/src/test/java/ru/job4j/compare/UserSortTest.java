@@ -21,10 +21,11 @@ public class UserSortTest {
     @Test
     public void whenLittleMike() {
         UserSort userSort = new UserSort();
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Jhon", 100));
-        userList.add(new User("Mike", 10));
-        userList.add(new User("Viktor", 27));
+        List<User> userList = List.of(
+                new User("Jhon", 100),
+                new User("Mike", 10),
+                new User("Viktor", 27)
+        );
         Set<User> userSet = userSort.sort(userList);
         Iterator<User> iterator = userSet.iterator();
         assertThat(iterator.next(), is(userList.get(1)));
@@ -33,10 +34,11 @@ public class UserSortTest {
     @Test
     public void whenLittleViktor() {
         UserSort userSort = new UserSort();
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Jhon", 100));
-        userList.add(new User("Mike", 100));
-        userList.add(new User("Viktor", 27));
+        List<User> userList = List.of(
+                new User("Jhon", 100),
+                new User("Mike", 100),
+                new User("Viktor", 27)
+        );
         Set<User> userSet = userSort.sort(userList);
         Iterator<User> iterator = userSet.iterator();
         assertThat(iterator.next(), is(userList.get(2)));
@@ -45,10 +47,11 @@ public class UserSortTest {
     @Test
     public void whenViktorLong() {
         UserSort userSort = new UserSort();
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Jhon", 100));
-        userList.add(new User("Mike", 100));
-        userList.add(new User("Viktor", 27));
+        List<User> userList = List.of(
+                new User("Jhon", 100),
+                new User("Mike", 100),
+                new User("Viktor", 27)
+        );
         userList = userSort.sortNameLength(userList);
         assertThat(userList.get(2).getName(), is("Viktor"));
     }
@@ -56,13 +59,15 @@ public class UserSortTest {
     @Test
     public void whenIvan() {
         UserSort userSort = new UserSort();
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Сергей", 25));
-        userList.add(new User("Иван", 30));
-        userList.add(new User("Сергей", 20));
-        userList.add(new User("Иван", 25));
+        List<User> userList = List.of(
+                new User("Сергей", 25),
+                new User("Иван", 30),
+                new User("Сергей", 20),
+                new User("Иван", 25)
+        );
         List<User> result = userSort.sortByAllFields(userList);
-        assertThat(result.get(0).getName(), is("Иван"));
-        assertThat(result.get(1).getName(), is("Иван"));
+        Iterator<User> iterator = result.iterator();
+        assertThat(iterator.next().getName(), is("Иван"));
+        assertThat(iterator.next().getName(), is("Иван"));
     }
 }

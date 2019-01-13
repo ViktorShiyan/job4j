@@ -20,9 +20,7 @@ public class UserConvertTest {
         UserConvert userConvert = new UserConvert();
         User userOne = new User(1, "Ivan", "Omsk");
         User userTwo = new User(2, "Viktor", "Omsk");
-        List<User> userList = new ArrayList<User>();
-        userList.add(userOne);
-        userList.add(userTwo);
+        List<User> userList = List.of(userOne, userTwo);
         HashMap<Integer, User> result = userConvert.process(userList);
         HashMap<Integer, User> expect = new HashMap<>();
         expect.put(userOne.getId(), userOne);

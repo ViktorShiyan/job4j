@@ -38,7 +38,6 @@ public class UserSort {
      * @return отсортированный список
      */
     public List<User> sortByAllFields(List<User> userList) {
-        userList.sort(new ComparatorUserName().thenComparing(new ComparatorUserAge()));
         return userList.stream().sorted(new ComparatorUserName().thenComparing(new ComparatorUserAge())).collect(Collectors.toList());
     }
 }
