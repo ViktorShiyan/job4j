@@ -1,6 +1,10 @@
 package ru.job4j.tictactoe;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
+
 
 public class Logic3T {
     private final Figure3T[][] table;
@@ -50,6 +54,14 @@ public class Logic3T {
     }
 
     public boolean hasGap() {
-        return true;
+        return twoDArrayToList(this.table).stream().anyMatch(figure3T -> !figure3T.hasMarkO() && !figure3T.hasMarkX());
+    }
+
+    public List<Figure3T> twoDArrayToList(Figure3T[][] twoDArray) {
+        List<Figure3T> list = new ArrayList<Figure3T>();
+        for (Figure3T[] array : twoDArray) {
+            list.addAll(Arrays.asList(array));
+        }
+        return list;
     }
 }
