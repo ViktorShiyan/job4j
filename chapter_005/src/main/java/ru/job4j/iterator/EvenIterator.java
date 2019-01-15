@@ -15,41 +15,45 @@ public class EvenIterator implements Iterator {
     private int index = 0;
 
     public EvenIterator(final int[] array) {
-        this.array = this.convertEvenArray(array);
+        this.array = array;
     }
 
     @Override
     public boolean hasNext() {
-        return index < this.array.length;
+        boolean res = false;
+        for (int i = this.index; i < array.length; i++) {
+            if (array[i] % 2 == 0) {
+                res = true;
+            }
+        }
+        return res;
     }
 
     @Override
     public Object next() {
         int result;
         if (this.hasNext()) {
-            result = this.array[this.index++];
+            result = this.array[findIndex()];
         } else {
             throw new NoSuchElementException();
         }
         return result;
     }
 
-    /**
-     * Приобразуем массив с случайными числами в четный массив
-     *
-     * @param array входной массив
-     * @return четный массив
-     */
-    private int[] convertEvenArray(int[] array) {
-        long length = Arrays.stream(array).filter(x -> x % 2 == 0).count();
-        int[] arrayRes = new int[Math.toIntExact(length)];
-        int index = 0;
-        for (int i : array) {
-            if (i % 2 == 0) {
-                arrayRes[index] = i;
-                index++;
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException();
+    }
+
+    private int findIndex() {
+        int res = -1;
+        for (int i = this.index; i < this.array.length; i++) {
+            if (this.array[i] % 2 == 0) {
+                res = i;
+                this.index = ++i;
+                break;
             }
         }
-        return arrayRes;
+        return res;
     }
 }

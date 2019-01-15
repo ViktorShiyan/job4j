@@ -2,6 +2,7 @@ package ru.job4j.iterator;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Итератор для двумерного массива
@@ -10,40 +11,35 @@ import java.util.Iterator;
  * @since 15.01.2019
  */
 public class JaggedArrayIterator implements Iterator {
-    private final int[] array;
-    private int index = 0;
+    private final int[][] array;
+    private int out = 0;
+    private int in = 0;
 
     public JaggedArrayIterator(final int[][] array) {
-        this.array = this.convert2Array(array);
+        this.array = array;
 
     }
 
     @Override
     public boolean hasNext() {
-        return index < this.array.length;
+        return out < this.array.length && in < this.array[out].length;
     }
 
     @Override
     public Object next() {
-        return this.array[index++];
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        int res = array[out][in++];
+        if (in >= array[out].length) {
+            in = 0;
+            out++;
+        }
+        return res;
     }
 
-    /**
-     * Метод для преобразования двумерного массива в одномерный
-     *
-     * @param jaggedArray входной массив
-     * @return значения входного массива в одномерном
-     */
-    private int[] convert2Array(int[][] jaggedArray) {
-        int lenght = Arrays.stream(jaggedArray).mapToInt(x -> x.length).sum();
-        int[] resultArray = new int[lenght];
-        int index = 0;
-        for (int[] out : jaggedArray) {
-            for (int in : out) {
-                resultArray[index] = in;
-                index++;
-            }
-        }
-        return resultArray;
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException();
     }
 }
