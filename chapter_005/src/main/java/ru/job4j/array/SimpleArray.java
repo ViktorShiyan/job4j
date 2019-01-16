@@ -36,7 +36,7 @@ public class SimpleArray<T> implements Iterable {
      * @param model элемент
      */
     public void set(int index, T model) {
-        if (index >= array.length || index < 0) {
+        if (index >= this.index || index < 0) {
             throw new RuntimeException("Индекс за пределами");
         }
         this.array[index] = model;
@@ -48,8 +48,12 @@ public class SimpleArray<T> implements Iterable {
      * @param index индекс удаляемого объекта
      */
     public void remove(int index) {
-        this.index--;
-        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
+        if (this.index > 0 && index < this.index) {
+            this.index--;
+            System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
+        } else {
+            throw new RuntimeException("Нет элемента для удаления с таким индексом");
+        }
     }
 
     /**
