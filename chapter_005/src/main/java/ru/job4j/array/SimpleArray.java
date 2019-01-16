@@ -63,7 +63,12 @@ public class SimpleArray<T> implements Iterable {
      * @return элемент из списка
      */
     public T get(int index) {
-        return (T) this.array[index];
+        if (this.index > 0 && index < this.index) {
+            return (T) this.array[index];
+        } else {
+            throw new RuntimeException("Нет элемента для удаления с таким индексом");
+        }
+
     }
 
     /**
