@@ -101,4 +101,24 @@ public class IteratorForIteratorsTest {
         assertThat(it.next(), is(3));
         it.next();
     }
+
+
+    @Test
+    public void whenOfNextNoSuchElementException() {
+        Iterator<Integer> it1 = Arrays.asList(1, 2, 3).iterator();
+        Iterator<Iterator<Integer>> its = Arrays.asList(it1).iterator();
+        IteratorForIterators iteratorForIterators = new IteratorForIterators();
+        it = iteratorForIterators.convert(its);
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+        String result = "";
+        try {
+            it.next();
+        } catch (NoSuchElementException exc) {
+            result = exc.getMessage();
+        }
+        assertThat(result, is("нет элементов"));
+    }
+
 }

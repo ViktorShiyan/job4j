@@ -1,6 +1,7 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Преобразует итератор итераторов в итереатор
@@ -53,8 +54,17 @@ public class IteratorForIterators {
                 if (this.currentNestedIt.hasNext()) {
                     result = this.currentNestedIt.next();
                 } else {
-                    this.currentNestedIt = it.next();
-                    result = this.currentNestedIt.next();
+                    if (it.hasNext()) {
+                        this.currentNestedIt = it.next();
+                        if (this.currentNestedIt.hasNext()) {
+                            result = this.currentNestedIt.next();
+                        } else {
+                            throw new NoSuchElementException("нет элементов");
+                        }
+
+                    } else {
+                        throw new NoSuchElementException("нет элементов");
+                    }
                 }
                 return result;
             }
