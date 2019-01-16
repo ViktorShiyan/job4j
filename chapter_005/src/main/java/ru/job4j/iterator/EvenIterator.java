@@ -24,6 +24,8 @@ public class EvenIterator implements Iterator {
         for (int i = this.index; i < array.length; i++) {
             if (array[i] % 2 == 0) {
                 res = true;
+                this.index = i;
+                break;
             }
         }
         return res;
@@ -33,7 +35,8 @@ public class EvenIterator implements Iterator {
     public Object next() {
         int result;
         if (this.hasNext()) {
-            result = this.array[findIndex()];
+            result = this.array[this.index];
+            this.index++;
         } else {
             throw new NoSuchElementException();
         }
@@ -45,15 +48,4 @@ public class EvenIterator implements Iterator {
         throw new UnsupportedOperationException();
     }
 
-    private int findIndex() {
-        int res = -1;
-        for (int i = this.index; i < this.array.length; i++) {
-            if (this.array[i] % 2 == 0) {
-                res = i;
-                this.index = ++i;
-                break;
-            }
-        }
-        return res;
-    }
 }
