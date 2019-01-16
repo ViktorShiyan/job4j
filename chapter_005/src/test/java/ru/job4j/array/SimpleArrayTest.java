@@ -39,7 +39,7 @@ public class SimpleArrayTest {
         } catch (RuntimeException re) {
             res = re.getMessage();
         }
-        assertThat(res, is("Переполнение"));
+        assertThat(res, is("error"));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class SimpleArrayTest {
         } catch (RuntimeException re) {
             res = re.getMessage();
         }
-        assertThat(res, is("Переполнение"));
+        assertThat(res, is("error"));
     }
 
     @Test
@@ -118,6 +118,6 @@ public class SimpleArrayTest {
         } catch (NoSuchElementException re) {
             res = re.getMessage();
         }
-        assertThat(res, is("No"));
+        assertThat(res, is("error"));
     }
 }

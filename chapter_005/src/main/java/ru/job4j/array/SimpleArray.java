@@ -24,7 +24,7 @@ public class SimpleArray<T> implements Iterable {
      */
     public void add(T model) {
         if (this.index >= this.array.length) {
-            throw new RuntimeException("Переполнение");
+            throw new RuntimeException("error");
         }
         this.array[index++] = model;
     }
@@ -37,7 +37,7 @@ public class SimpleArray<T> implements Iterable {
      */
     public void set(int index, T model) {
         if (index >= this.index || index < 0) {
-            throw new RuntimeException("Индекс за пределами");
+            throw new RuntimeException("error");
         }
         this.array[index] = model;
     }
@@ -52,7 +52,7 @@ public class SimpleArray<T> implements Iterable {
             this.index--;
             System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
         } else {
-            throw new RuntimeException("Нет элемента для удаления с таким индексом");
+            throw new RuntimeException("error");
         }
     }
 
@@ -62,21 +62,22 @@ public class SimpleArray<T> implements Iterable {
      * @param index индекс
      * @return элемент из списка
      */
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         if (this.index > 0 && index < this.index) {
             return (T) this.array[index];
         } else {
-            throw new RuntimeException("Нет элемента для удаления с таким индексом");
+            throw new RuntimeException("error");
         }
 
     }
 
     /**
-     * Итератор
+     * Iterator
      *
      * @return итератор списка
      */
-    @Override
+    @SuppressWarnings("unchecked")
     public Iterator iterator() {
         return new IteratorSimple((T[]) this.array, this.index);
     }
@@ -105,7 +106,7 @@ public class SimpleArray<T> implements Iterable {
             if (hasNext()) {
                 return this.array[index++];
             } else {
-                throw new NoSuchElementException("No");
+                throw new NoSuchElementException("error");
             }
         }
     }

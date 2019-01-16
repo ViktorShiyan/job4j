@@ -75,6 +75,7 @@ public class AbstractStore<T extends Base> implements Store<T> {
      * @param id идентификатор
      * @return индекс
      */
+    @SuppressWarnings("unchecked")
     private int findIndexById(String id) {
         int result = -1;
         int index = 0;
