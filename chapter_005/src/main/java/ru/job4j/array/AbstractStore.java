@@ -28,8 +28,9 @@ public class AbstractStore<T extends Base> implements Store<T> {
     @Override
     public boolean replace(String id, T model) {
         boolean result = false;
-        if (this.findIndexById(id) != -1) {
-            this.simpleArray.set(this.findIndexById(id), model);
+        int findIndex = this.findIndexById(id);
+        if (findIndex != -1) {
+            this.simpleArray.set(findIndex, model);
             result = true;
         }
         return result;
@@ -44,8 +45,9 @@ public class AbstractStore<T extends Base> implements Store<T> {
     @Override
     public boolean delete(String id) {
         boolean result = false;
-        if (this.findIndexById(id) != -1) {
-            this.simpleArray.remove(this.findIndexById(id));
+        int findIndex = this.findIndexById(id);
+        if (findIndex != -1) {
+            this.simpleArray.remove(findIndex);
             result = true;
         }
         return result;
@@ -60,8 +62,9 @@ public class AbstractStore<T extends Base> implements Store<T> {
     @Override
     public T findById(String id) {
         T result = null;
-        if (this.findIndexById(id) != -1) {
-            result = this.simpleArray.get(this.findIndexById(id));
+        int findIndex = this.findIndexById(id);
+        if (findIndex != -1) {
+            result = this.simpleArray.get(findIndex);
         }
         return result;
     }
