@@ -17,7 +17,7 @@ public class IteratorForIterators {
      * @return итератор чисел.
      */
     public Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
-        return new Iterator<Integer>() {
+        return new Iterator<>() {
 
             private Iterator<Integer> currentNestedIt = initialCurrentNestedIt();
 
@@ -41,7 +41,19 @@ public class IteratorForIterators {
              */
             @Override
             public boolean hasNext() {
-                return (this.currentNestedIt.hasNext() || it.hasNext());
+                //return (this.currentNestedIt.hasNext() || it.hasNext());
+                boolean result = false;
+                if (this.currentNestedIt.hasNext()) {
+                    result = true;
+                } else {
+                    if (it.hasNext()) {
+                        this.currentNestedIt = it.next();
+                        if (this.currentNestedIt.hasNext()) {
+                            result = true;
+                        }
+                    }
+                }
+                return result;
             }
 
             /**
@@ -51,21 +63,10 @@ public class IteratorForIterators {
             @Override
             public Integer next() {
                 Integer result;
-                if (this.currentNestedIt.hasNext()) {
-                    result = this.currentNestedIt.next();
-                } else {
-                    if (it.hasNext()) {
-                        this.currentNestedIt = it.next();
-                        if (this.currentNestedIt.hasNext()) {
-                            result = this.currentNestedIt.next();
-                        } else {
-                            throw new NoSuchElementException("нет элементов");
-                        }
-
-                    } else {
-                        throw new NoSuchElementException("нет элементов");
-                    }
+                if (!this.hasNext()) {
+                    throw new NoSuchElementException("нет элементов");
                 }
+                result = currentNestedIt.next();
                 return result;
             }
         };
