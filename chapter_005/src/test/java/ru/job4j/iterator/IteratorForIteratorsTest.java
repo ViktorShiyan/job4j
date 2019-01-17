@@ -121,4 +121,16 @@ public class IteratorForIteratorsTest {
         assertThat(result, is("нет элементов"));
     }
 
+    @Test
+    public void hasNextShouldReturnFalseInCaseOfEmpty() {
+        Iterator<Integer> it1 = (new ArrayList<Integer>()).iterator();
+        Iterator<Integer> it4 = (Arrays.asList(2)).iterator();
+        Iterator<Integer> it2 = (new ArrayList<Integer>()).iterator();
+        Iterator<Integer> it3 = (Arrays.asList(1)).iterator();
+        Iterator<Iterator<Integer>> its = Arrays.asList(it1, it4, it2, it3).iterator();
+        IteratorForIterators iteratorForIterators = new IteratorForIterators();
+        it = iteratorForIterators.convert(its);
+        it.next();
+        assertThat(it.hasNext(), is(true));
+    }
 }

@@ -41,15 +41,15 @@ public class IteratorForIterators {
              */
             @Override
             public boolean hasNext() {
-                //return (this.currentNestedIt.hasNext() || it.hasNext());
                 boolean result = false;
                 if (this.currentNestedIt.hasNext()) {
                     result = true;
                 } else {
-                    if (it.hasNext()) {
+                    while (it.hasNext()) {
                         this.currentNestedIt = it.next();
                         if (this.currentNestedIt.hasNext()) {
                             result = true;
+                            break;
                         }
                     }
                 }
