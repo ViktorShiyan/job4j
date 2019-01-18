@@ -25,6 +25,9 @@ public class SimpleArrayList<E> {
      * Реализовать метод удаления первого элемент в списке.
      */
     public E delete() {
+        if (this.size == 0) {
+            throw new RuntimeException("nothing");
+        }
         Node<E> result = this.first;
         this.first = first.next;
         size--;

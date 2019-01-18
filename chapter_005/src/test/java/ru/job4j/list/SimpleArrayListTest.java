@@ -36,4 +36,16 @@ public class SimpleArrayListTest {
         assertThat(list.getSize(), is(2));
         assertThat(list.get(0), is(2));
     }
+
+    @Test
+    public void whenDeleteNothing() {
+        list = new SimpleArrayList<>();
+        String result = "";
+        try {
+            list.delete();
+        } catch (RuntimeException re) {
+            result = re.getMessage();
+        }
+        assertThat(result, is("nothing"));
+    }
 }
