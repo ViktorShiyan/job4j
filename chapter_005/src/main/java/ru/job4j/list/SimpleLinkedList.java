@@ -47,6 +47,7 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
+            Node<E> currentNode = first;
             private int itIndex = 0;
             private int expectMod = modeCheck;
 
@@ -61,10 +62,14 @@ public class SimpleLinkedList<E> implements Iterable<E> {
 
             @Override
             public E next() {
+                E result;
                 if (this.expectMod != modeCheck) {
                     throw new RuntimeException("modification");
                 } else if (this.hasNext()) {
-                    return get(itIndex++);
+                    result = this.currentNode.date;
+                    this.currentNode = this.currentNode.next;
+                    this.itIndex++;
+                    return result;
                 } else {
                     throw new NoSuchElementException("error");
                 }
