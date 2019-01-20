@@ -1,6 +1,7 @@
 package ru.job4j.list;
 
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -60,7 +61,7 @@ public class SimpleLinkedList<E> implements Iterable<E> {
             public E next() {
                 E result;
                 if (this.expectMod != modeCheck) {
-                    throw new RuntimeException("modification");
+                    throw new ConcurrentModificationException("modification");
                 }
                 if (!hasNext()) {
                     throw new NoSuchElementException("error");
