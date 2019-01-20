@@ -53,11 +53,7 @@ public class SimpleLinkedList<E> implements Iterable<E> {
 
             @Override
             public boolean hasNext() {
-                boolean result = false;
-                if (this.itIndex < size) {
-                    result = true;
-                }
-                return result;
+                return this.itIndex < size;
             }
 
             @Override
@@ -65,14 +61,14 @@ public class SimpleLinkedList<E> implements Iterable<E> {
                 E result;
                 if (this.expectMod != modeCheck) {
                     throw new RuntimeException("modification");
-                } else if (this.hasNext()) {
-                    result = this.currentNode.date;
-                    this.currentNode = this.currentNode.next;
-                    this.itIndex++;
-                    return result;
-                } else {
+                }
+                if (!hasNext()) {
                     throw new NoSuchElementException("error");
                 }
+                result = this.currentNode.date;
+                this.currentNode = this.currentNode.next;
+                this.itIndex++;
+                return result;
             }
         };
     }
