@@ -45,6 +45,19 @@ public class SimpleLinkedList<E> implements Iterable<E> {
         }
     }
 
+    /**
+     * Метод удаления первого элемент в списке.
+     */
+    public E delete() {
+        if (this.size == 0) {
+            throw new RuntimeException("nothing");
+        }
+        Node<E> result = this.first;
+        this.first = first.next;
+        size--;
+        return result.date;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
