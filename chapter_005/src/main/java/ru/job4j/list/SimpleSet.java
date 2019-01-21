@@ -18,14 +18,7 @@ public class SimpleSet<E> implements Iterable<E> {
      * @param e элемент для добавления
      */
     public void add(E e) {
-        boolean uniq = true;
-        for (E o : container) {
-            if (o.equals(e)) {
-                uniq = false;
-                break;
-            }
-        }
-        if (uniq) {
+        if (this.contain(e)) {
             container.add(e);
         }
     }
@@ -36,5 +29,22 @@ public class SimpleSet<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return container.iterator();
+    }
+
+    /**
+     * Метод проверки на уникальность
+     *
+     * @param element входной элемент
+     * @return true если элимент уникален
+     */
+    private boolean contain(E element) {
+        boolean uniq = true;
+        for (E o : container) {
+            if (o.equals(element)) {
+                uniq = false;
+                break;
+            }
+        }
+        return uniq;
     }
 }
