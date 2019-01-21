@@ -29,6 +29,9 @@ public class SimpleLinkedList<E> implements Iterable<E> {
         this.modeCheck++;
     }
 
+    public int getSize() {
+        return this.size;
+    }
 
     /**
      * Метод получения элемента по индексу.

@@ -29,4 +29,8 @@ public class SimpleStack<T> {
     public void push(T value) {
         this.tSimpleLinkedList.add(value);
     }
+
+    public boolean isEmpty() {
+        return this.tSimpleLinkedList.getSize() == 0;
+    }
 }
