@@ -87,7 +87,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
         } else {
             int hash = hash(key.hashCode());
             int index = indexFor(hash, this.hashTable.length);
-            if (hashTable[index] != null || hashTable[index].getKey().equals(key)) {
+            if (hashTable[index] != null && hashTable[index].getKey().equals(key)) {
                 hashTable[index] = null;
                 modCount++;
                 result = true;
@@ -197,6 +197,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
                 for (int i = this.position; i < hashTable.length; i++) {
                     if (hashTable[i] != null) {
                         result = i;
+                        this.position = result;
                         break;
                     }
                 }
@@ -209,7 +210,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
              */
             @Override
             public boolean hasNext() {
-                return (findNextNotNullElement() != -1);
+                return (this.position != -1);
             }
 
             /**
@@ -228,7 +229,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
                 int nextNotNullElementIndex = findNextNotNullElement();
                 Entry<K, V> result = hashTable[findNextNotNullElement()];
                 this.position = nextNotNullElementIndex + 1;
-                return  result;
+                return result;
             }
         };
     }
