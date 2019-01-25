@@ -57,6 +57,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
         if (key == null) {
             this.hashTable[0] = new Entry<>(null, value);
             modCount++;
+            this.size++;
             result = true;
         } else {
             int hash = hash(key.hashCode());
@@ -64,6 +65,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
             if (hashTable[index] == null || hashTable[index].getKey().equals(key)) {
                 hashTable[index] = new Entry<>(key, value);
                 modCount++;
+                this.size++;
                 result = true;
             } else {
                 result = false;
@@ -83,6 +85,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
         if (key == null) {
             this.hashTable[0] = null;
             modCount++;
+            this.size--;
             result = true;
         } else {
             int hash = hash(key.hashCode());
@@ -90,6 +93,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Entry<K, V>> 
             if (hashTable[index] != null && hashTable[index].getKey().equals(key)) {
                 hashTable[index] = null;
                 modCount++;
+                this.size--;
                 result = true;
             } else {
                 result = false;
