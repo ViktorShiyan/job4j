@@ -48,7 +48,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     public boolean add(E parent, E child) {
         Optional<Node<E>> foundParent = findBy(parent);
         boolean result = false;
-        if (foundParent.isPresent()) {
+        if (foundParent.isPresent() && !foundParent.get().leaves().contains(child)) {
             foundParent.get().add(new Node<>(child));
             modCount++;
             result = true;
