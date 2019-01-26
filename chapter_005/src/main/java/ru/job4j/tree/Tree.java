@@ -64,17 +64,20 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     public boolean isBinary() {
         boolean result = true;
-        Node<E> parent = this.checkingNode;
-        if (parent.leaves().size() <= 2) {
-            for (Node<E> child : parent.leaves()) {
-                this.checkingNode = child;
-                if (!isBinary()) {
-                    result = false;
-                    break;
-                }
+        int counter;
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(this.root);
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+            counter = 0;
+            for (Node<E> child : node.leaves()) {
+                queue.offer(child);
+                counter++;
             }
-        } else {
-            result = false;
+            if (counter > 2) {
+                result = false;
+                break;
+            }
         }
         return result;
     }
