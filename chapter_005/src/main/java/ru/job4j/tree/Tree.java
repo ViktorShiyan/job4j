@@ -64,20 +64,16 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     public boolean isBinary() {
         boolean result = true;
-        int counter;
         Queue<Node<E>> queue = new LinkedList<>();
         queue.offer(this.root);
         while (!queue.isEmpty()) {
             Node<E> node = queue.poll();
-            counter = 0;
-            for (Node<E> child : node.leaves()) {
-                queue.offer(child);
-                counter++;
-            }
-            if (counter > 2) {
+            final List<Node<E>> leaves = node.leaves();
+            if (leaves.size() > 2) {
                 result = false;
                 break;
             }
+            queue.addAll(leaves);
         }
         return result;
     }
@@ -134,7 +130,6 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             private void addAllChild(Node<E> currentNode) {
                 for (Node<E> child : currentNode.leaves()) {
                     this.nodesQueue.offer(child);
-                    addAllChild(child);
                 }
             }
 
@@ -145,7 +140,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
              */
             @Override
             public boolean hasNext() {
-                return !getAllNodes().isEmpty();
+                return !nodesQueue.isEmpty();
             }
 
             /**
@@ -160,7 +155,9 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
                 if (this.expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return this.nodesQueue.poll().getValue();
+                Node<E> tmp = this.nodesQueue.poll();
+                this.addAllChild(tmp);
+                return tmp.getValue();
             }
         };
     }
