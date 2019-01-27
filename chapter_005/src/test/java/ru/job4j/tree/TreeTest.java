@@ -2,6 +2,8 @@ package ru.job4j.tree;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -55,5 +57,20 @@ public class TreeTest {
         testTree.add(3, 7);
         testTree.add(3, 8);
         assertThat(testTree.isBinary(), is(false));
+    }
+    @Test
+    public void when6ElFindLastThen6Iterator() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(
+                tree.findBy(6).isPresent(),
+                is(true)
+        );
+        final Iterator<Integer> iterator = tree.iterator();
+        assertTrue(iterator.hasNext());
     }
 }

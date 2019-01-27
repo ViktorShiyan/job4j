@@ -109,29 +109,9 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            Queue<Node<E>> nodesQueue;
+            Queue<Node<E>> nodesQueue = new LinkedList<>(Collections.singleton(root));
             private int expectedModCount = modCount;
 
-            /**
-             * @return очередь всех элементов дерева.
-             */
-            private Queue<Node<E>> getAllNodes() {
-                if (nodesQueue == null) {
-                    this.nodesQueue = new LinkedList<>();
-                    addAllChild(root);
-                }
-                return this.nodesQueue;
-            }
-
-            /**
-             * Рекурсивно добавляет все элементы дерева наследуюие от указанного узла в очередь.
-             * @param currentNode указанный узел.
-             */
-            private void addAllChild(Node<E> currentNode) {
-                for (Node<E> child : currentNode.leaves()) {
-                    this.nodesQueue.offer(child);
-                }
-            }
 
             /**
              * Проверяет наличие следующих элементов.
@@ -156,7 +136,7 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
                     throw new ConcurrentModificationException();
                 }
                 Node<E> tmp = this.nodesQueue.poll();
-                this.addAllChild(tmp);
+                tmp.leaves().forEach(x -> nodesQueue.offer(x));
                 return tmp.getValue();
             }
         };
