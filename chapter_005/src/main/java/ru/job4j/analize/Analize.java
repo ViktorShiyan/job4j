@@ -1,7 +1,8 @@
 package ru.job4j.analize;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Класс анализатор списков
@@ -19,24 +20,18 @@ public class Analize {
      * @return новый экземпляр информации
      */
     public Info diff(List<User> previous, List<User> current) {
-        List<User> listTemp = new ArrayList<>(current);
-        int notChanged = 0;
+        Map<Integer, String> currentUser = current.stream().collect(Collectors.toMap(User::getId, User::getName));
         Info info = new Info(0, 0, 0);
-        for (User userPrev : previous) {
-            for (int i = 0; i < listTemp.size(); i++) {
-                if (userPrev.id == listTemp.get(i).id && userPrev.name.equals(listTemp.get(i).name)) {
-                    listTemp.remove(i);
-                    notChanged++;
-                    break;
-                } else if (userPrev.id == listTemp.get(i).id) {
-                    info.changed++;
-                    listTemp.remove(i);
-                    break;
-                }
+        String temp;
+        for (User user : previous) {
+            temp = currentUser.remove(user.getId());
+            if (temp == null) {
+                info.deleted++;
+            } else if (!temp.equals(user.getName())) {
+                info.changed++;
             }
         }
-        info.added = listTemp.size();
-        info.deleted = previous.size() - (notChanged + info.changed);
+        info.added = currentUser.size();
         return info;
     }
 
@@ -44,6 +39,14 @@ public class Analize {
      * Класс описывающий пользователя
      */
     public static class User {
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
         /**
          * Идентификатор
          */
