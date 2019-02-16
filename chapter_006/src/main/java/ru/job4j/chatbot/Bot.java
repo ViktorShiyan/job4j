@@ -22,23 +22,24 @@ public class Bot {
     public void dialog() {
         boolean run = true;
         boolean mute = false;
-        String ask;
         Scanner scanner = new Scanner(System.in);
         while (run) {
-            ask = scanner.nextLine();
-            if (ask.equals("закончить")) {
+            String ask = scanner.nextLine();
+            if ("закончить".equals(ask)) {
                 log(ask);
                 run = false;
-            } else if (ask.equals("стоп")) {
+            } else if ("стоп".equals(ask)) {
                 log(ask);
                 mute = true;
-            } else if (ask.equals("продолжить")) {
+            } else if ("продолжить".equals(ask)) {
                 log(ask);
                 mute = false;
             } else {
                 log(ask);
                 if (!mute) {
-                    System.out.println(botAnswer(new File("C:\\answer.txt")));
+                    String answer = botAnswer(new File("answer.txt"));
+                    log(answer);
+                    System.out.println(answer);
                 }
             }
         }
@@ -54,7 +55,7 @@ public class Bot {
         try {
             Random rand = new Random();
             int n = 0;
-            for (Scanner sc = new Scanner(f); sc.hasNext();) {
+            for (Scanner sc = new Scanner(f); sc.hasNext(); ) {
                 ++n;
                 String line = sc.nextLine();
                 if (rand.nextInt(n) == 0) {
@@ -75,7 +76,7 @@ public class Bot {
      * @param logText записываеммые слова в лог
      */
     private void log(String logText) {
-        try (FileWriter writer = new FileWriter("C:\\logBot.txt", true)) {
+        try (FileWriter writer = new FileWriter("logBot.txt", true)) {
             writer.write(logText + System.lineSeparator());
             writer.flush();
         } catch (IOException ex) {
