@@ -16,8 +16,8 @@ import java.util.Scanner;
 public class BotClient {
     private Socket socket;
 
-    public BotClient(Socket socket) {
-        this.socket = socket;
+    public BotClient(String host, int port) throws IOException {
+        this.socket = new Socket(host, port);
     }
 
     /**
@@ -41,8 +41,7 @@ public class BotClient {
     }
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("127.0.0.1", 4242);
-        BotClient client = new BotClient(socket);
+        BotClient client = new BotClient("127.0.0.1", 4242);
         client.run();
     }
 }
