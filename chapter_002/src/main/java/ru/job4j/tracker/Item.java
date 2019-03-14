@@ -35,6 +35,10 @@ public class Item {
         return created;
     }
 
+    public void setCreated(long created) {
+        this.created = created;
+    }
+
     public String[] getComments() {
         return comments;
     }

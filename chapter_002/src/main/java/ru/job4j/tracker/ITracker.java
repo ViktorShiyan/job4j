@@ -9,7 +9,7 @@ import java.util.List;
  * @author Viktor Shiyan
  * @since 28.12.2018
  */
-public interface TrackerInterface {
+public interface ITracker {
     Item add(Item item);
 
     List<Item> findAll();

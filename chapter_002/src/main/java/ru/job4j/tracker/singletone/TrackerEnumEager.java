@@ -2,17 +2,16 @@ package ru.job4j.tracker.singletone;
 
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
-import ru.job4j.tracker.TrackerInterface;
+import ru.job4j.tracker.ITracker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * enum. Eager loading.
  * Реализация singleton с помощью enum
- * реализует интерфейс TrackerInterface
+ * реализует интерфейс ITracker
  */
-public enum TrackerEnumEager implements TrackerInterface {
+public enum TrackerEnumEager implements ITracker {
     INSTANCE;
     private Tracker tracker = new Tracker();
 

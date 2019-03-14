@@ -4,10 +4,10 @@ import java.util.List;
 
 /**
  * Абстрактный класс, создан для уменьшения рукописного кода
- * реализует интерфейс TrackerInterface
+ * реализует интерфейс ITracker
  * В этом абстрактном классе используется принцип композиции
  */
-public abstract class TrackerAbstract implements TrackerInterface {
+public abstract class TrackerAbstract implements ITracker {
     private Tracker tracker = new Tracker();
 
     @Override

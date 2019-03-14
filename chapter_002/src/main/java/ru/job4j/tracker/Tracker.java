@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Tracker implements TrackerInterface {
+public class Tracker implements ITracker {
     private List<Item> items = new ArrayList<>();
     private static final Random RN = new Random();
 
