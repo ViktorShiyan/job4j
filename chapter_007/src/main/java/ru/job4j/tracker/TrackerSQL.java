@@ -25,14 +25,17 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     /**
      * конструктор инициализирующий таблицу в базе данных
      */
-    public TrackerSQL() {
-        init();
+    public TrackerSQL(Connection connection) {
+
+        this.connection = connection;
+
+        /*init();
         try {
             Statement stat = this.connection.createStatement();
             stat.executeUpdate("CREATE TABLE IF NOT EXISTS item(id VARCHAR(30) PRIMARY KEY, name VARCHAR(30), description VARCHAR(30),created BIGINT);");
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     /**
@@ -177,6 +180,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      *
      * @return false если подключиться не удалось
      */
+
     public boolean init() {
         try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
@@ -192,6 +196,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         }
         return this.connection != null;
     }
+
 
     /**
      * Метод удаляющий таблицу в базе данных
