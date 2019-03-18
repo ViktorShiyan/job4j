@@ -29,45 +29,30 @@ public class ParserXMLTest {
     }
 
     @Test
-    public void whenNIsTenAndAnswerIsFortyFive() {
+    public void whenNIsTenAndAnswerIsFortyFive() throws JAXBException, TransformerException {
         StoreSQL sql = new StoreSQL(new Config(), 10);
         StoreXML xml = new StoreXML(new Config(), new File("file.xml"));
         xml.makeListFromDb();
-        try {
-            xml.save(xml.getEntries());
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+        xml.save(xml.getEntries());
         ConvertXSQT convertXSQT = new ConvertXSQT();
-        try {
-            convertXSQT.convert(new File("file.xml"),
-                    new File("converted.xml"),
-                    new File("scheme.xml"));
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
+        convertXSQT.convert(new File("file.xml"),
+                new File("converted.xml"),
+                new File("scheme.xml"));
+
         new ParserXML();
         assertThat(new String(out.toByteArray()), is("45"));
     }
 
     @Test
-    public void whenNIsFiveAndAnswerIsTen() {
+    public void whenNIsFiveAndAnswerIsTen() throws JAXBException, TransformerException {
         StoreSQL sql = new StoreSQL(new Config(), 5);
         StoreXML xml = new StoreXML(new Config(), new File("file.xml"));
         xml.makeListFromDb();
-        try {
-            xml.save(xml.getEntries());
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+        xml.save(xml.getEntries());
         ConvertXSQT convertXSQT = new ConvertXSQT();
-        try {
-            convertXSQT.convert(new File("file.xml"),
-                    new File("converted.xml"),
-                    new File("scheme.xml"));
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
+        convertXSQT.convert(new File("file.xml"),
+                new File("converted.xml"),
+                new File("scheme.xml"));
         new ParserXML();
         assertThat(new String(out.toByteArray()), is("10"));
     }
